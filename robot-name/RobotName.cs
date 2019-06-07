@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class Robot
 {
     public Random rando = new Random();
-    public HashSet<string> UsedNames = new HashSet<string>();
+    public static HashSet<string> UsedNames = new HashSet<string>();
     public string _Name;
     public string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
    
@@ -26,6 +26,7 @@ public class Robot
 
     public string MakeNewName()
         {
+        UsedNames.Remove(_Name);
             string firstLetter = Letters[rando.Next(0, 25)].ToString();
             string secondLetter = Letters[rando.Next(0, 25)].ToString();
             string randomNumber1 = rando.Next(0,10).ToString();

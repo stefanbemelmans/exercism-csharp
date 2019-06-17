@@ -5,9 +5,6 @@ public static class RotationalCipher
     
     public static string Rotate(string text, int shiftKey)
     { 
-      bool IsCap;
-      char letter;
-      char tempCap;
       const char lastLetter = 'z';
       const int AlphabetSize = 26;    
       string excludedChars = " @0123456789!'?.,";
@@ -18,11 +15,11 @@ public static class RotationalCipher
           
       for (int i = 0; i < textToArray.Length; i++)
       {  
-         letter = textToArray[i];
+        char letter = textToArray[i];
        
          if(!excludedCharsList.Contains(letter))
          {
-            IsCap = Char.IsUpper(letter);
+           bool IsCap = Char.IsUpper(letter);
             letter = IsCap ? Char.ToLower(letter) : letter; 
            
             letter = (char)(letter + shiftKey);

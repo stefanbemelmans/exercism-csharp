@@ -47,6 +47,16 @@ public class Clock
       return string.Format("{0:D2}:{1:D2}", Hours, Minutes);
     }
 
+    public int TimePostivizor(int negTimeAmt, int timeToAdd)
+    {
+      int negativeTime = negTimeAmt;
+      while(negativeTime < 0)
+      {
+        negativeTime += timeToAdd;
+      }
+      return negativeTime;
+    }
+
     public Dictionary<string,int> TimeReducer(int hours, int minutes)
     {
       Dictionary<string,int> Times = new Dictionary<string,int>();
@@ -55,7 +65,7 @@ public class Clock
       //int totalMinutes = ((hours * 60) + minutes) % MinutesInDay;
       if(totalMinutes < 0)
       { 
-        totalMinutes += MinutesInDay; 
+        totalMinutes = TimePostivizor(totalMinutes, MinutesInDay);; 
       };
 
       int tempHour = totalMinutes / MinutesInHour;

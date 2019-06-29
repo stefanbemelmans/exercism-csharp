@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 public class Clock
 {   int _H, _M;
     int HoursInDay = 24;
     int MinutesInHour = 60;
     int extraHours = 0;
+    int MinutesInDay = (24 * 60);
     public Clock(int hours, int minutes)
     {
-        _H = hours;
-        _M = minutes;
+        _H = TimeReducer(hours,minutes)["hours"];
+        _M = TimeReducer(hours,minutes)["minutes"];
 
         ToString();
     }
@@ -16,16 +18,17 @@ public class Clock
     public int Hours
     {
         get
-        {   
-            return convertHours(_H);
+        {   return _H;
+           // return convertHours(_H);
         }
     }
 
     public int Minutes
     {
         get
-        {
-            return convertMinutes(_M);
+        {   
+            return _M;
+            // return convertMinutes(_M);
         }
     }
 
@@ -42,6 +45,29 @@ public class Clock
     public override string ToString()
     {
       return string.Format("{0:D2}:{1:D2}", Hours, Minutes);
+    }
+
+    public Dictionary<string,int> TimeReducer(int hours, int minutes)
+    {
+      Dictionary<string,int> Times = new Dictionary<string,int>();
+      
+        int totalMinutes = ((hours * 60) + minutes);
+      //int totalMinutes = ((hours * 60) + minutes) % MinutesInDay;
+      if(totalMinutes < 0)
+      { 
+        totalMinutes += MinutesInDay; 
+      };
+
+      int tempHour = totalMinutes / MinutesInHour;
+      if(tempHour > HoursInDay)
+      {
+        tempHour = tempHour % HoursInDay;
+      }
+
+      Times.Add("minutes",  totalMinutes % MinutesInHour);
+      Times.Add("hours", tempHour);
+      
+      return Times;
     }
 
     public int convertMinutes(int min)
